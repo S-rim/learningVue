@@ -7,11 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app">
-        <p v-if="seen">이제 나를 볼 수 있어요</p>
-    </div>
+    <div id="app-4">
+        <ol>
+          <li v-for="todo in todos">
+            {{ todo.text }}
+          </li>
+        </ol>
+      </div>
 
+    
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="./../JS/v-if.js"></script>
+<script src="./../JS/v-for.js"></script>
 </body>
 </html>
