@@ -3,14 +3,28 @@ const APP_LOG_LIFECYCLE_EVENTS = true;
 let webStore = new Vue({
     el : '#app',
     data : {
+        showProduct : true,
         sitename : 'Vue.js 애완용품샵',
         product : {
             id : 1001,
             title : "고양이 사료, 25파운드",
             description : "당신의 고양이를 위한 <em>거부할 수 없는,</em>" + " 유기농 25파운드 사료입니다.",
             price : 2000,
-            image : "./../assets/img/1Icon.PNG"            
-        }
+            image : "./../assets/img/1Icon.PNG",
+            availableInventory : 5         
+        },
+        cart : []
+    },
+    computed : {
+      fullName : function() {
+        return [this.firstName, this.lastName].join('');
+      },
+      cartItemCount : function() {
+        return this.cart.length || '';
+      },
+      canAddToCart : function() {
+        return this.product.availableInventory > this.cartItemCount;
+      }
     },
     filters : {
         formatPrice : function(price) {
@@ -31,6 +45,14 @@ let webStore = new Vue({
                 return "$"+(price/100).toFixed(2);
             }
         }
+    },
+    methods : {
+      addToCart : function() {
+        this.cart.push(this.product.id);
+      },
+      showCheckOut() {
+        this.showProduct = this.showProduct ? false : true;
+      } 
     },
         beforeCreate: function () {
         if (APP_LOG_LIFECYCLE_EVENTS) {
