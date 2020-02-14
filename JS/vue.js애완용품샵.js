@@ -5,6 +5,26 @@ let webStore = new Vue({
     data : {
         showProduct : true,
         sitename : 'Vue.js 애완용품샵',
+        order : {
+          firstName : '',
+          lastName : '',
+          address : '',
+          city : '',
+          zip : '',
+          state : '',
+          method : '자택',
+          gift : '선물로 보내기',
+          sendGift : '선물로 보내기',
+          dontSendGitf : '선물로 보내지 않기',
+          business : '직장 주소',
+          home : '자택 주소'
+        },
+        states : {
+          AL : '알라바마',
+          AR : '애리조나',
+          CA : '캘리포니아',
+          NV : '네바다'
+        },
         product : {
             id : 1001,
             title : "고양이 사료, 25파운드",
@@ -52,7 +72,10 @@ let webStore = new Vue({
       },
       showCheckOut() {
         this.showProduct = this.showProduct ? false : true;
-      } 
+      },
+      submitForm : function() {
+        alert("제출 완료!");
+      }
     },
         beforeCreate: function () {
         if (APP_LOG_LIFECYCLE_EVENTS) {
