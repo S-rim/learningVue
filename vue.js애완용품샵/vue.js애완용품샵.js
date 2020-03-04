@@ -27,33 +27,51 @@ let webStore = new Vue({
       sendGift: '선물로 보내기',
       dontSendGift: '선물로 보내기 않기'
     },
-    product: {
-      id: 1001,
-      title: "고양이 사료, 25파운드",
-      description: "당신의 고양이를 위한 <em>거부할 수 없는</em>, 유기농 25파운드 사료입니다.",
-      price: 2000,
-      image: "./assets/img/1icon.PNG",
-      availableInventory: 10
-    },
+    products: [],
     cart: []
   },
   methods: {
-    addToCart: function() {
-      this.cart.push( this.product.id );
+    addToCart(aProduct) {
+      this.cart.push(aProduct.id);
     },
     showCheckout() {
       this.showProduct = this.showProduct ? false: true;
     },
     submitForm() {
       alert('제출 완료');
+    },
+    checkRating(n, myProduct) {
+      return myProduct.rating - n >= 0;
+    },
+    canAddToCart(aProduct) {
+      return aProduct.availableInventory > this.cartCount(aProduct.id);
+    },
+    cartCount(id) {
+      let count = 0;
+      for (var i = 0; i < this.cart.length; i++) {
+        if (this.cart[i] === id) {
+          count++;
+        }
+      }
+      return count;
     }
   },
   computed: {
     cartItemCount() {
       return this.cart.length || '';
     },
-    canAddToCart() {
-      return this.product.availableInventory > this.cartItemCount;
+    sortedProducts() {
+      if (this.products.length > 0) {
+        let productsArray = this.products.slice(0);
+        function compare(a, b) {
+          if (a.title.toLowerCase() < b.title.toLowerCase())
+            return -1;
+          if (a.title.toLowerCase() > b.title.toLowerCase())
+            return 1;
+          return 0;
+        }
+        return productsArray.sort(compare);
+      }
     }
   },
   filters: {
@@ -79,36 +97,38 @@ let webStore = new Vue({
     }
   },
   created: function() {
-    if (APP_LOG_LIFECYCLE_EVENTS) {
-      console.log("created");
-    }
+    axios.get('./products.json')
+      .then((response) => {
+          this.products = response.data.products;
+          console.log(this.products);
+      });
   },
   beforeMount: function() {
     if (APP_LOG_LIFECYCLE_EVENTS) {
       console.log("beforeMount");
     }
   },
-  mounted:  function() {
+  mounted: function() {
     if (APP_LOG_LIFECYCLE_EVENTS) {
       console.log("mounted");
     }
   },
-  beforeUpdate:  function() {
+  beforeUpdate: function() {
     if (APP_LOG_LIFECYCLE_EVENTS) {
       console.log("beforeUpdate");
     }
   },
-  updated:  function() {
+  updated: function() {
     if (APP_LOG_LIFECYCLE_EVENTS) {
       console.log("updated");
     }
   },
-  beforeDestroyed:  function() {
+  beforeDestroyed: function() {
     if (APP_LOG_LIFECYCLE_EVENTS) {
       console.log("beforeDestroyed ");
     }
   },
-  destroyed:  function() {
+  destroyed: function() {
     if (APP_LOG_LIFECYCLE_EVENTS) {
       console.log("destroyed");
     }
