@@ -1,7 +1,7 @@
 <template>
     <div>
         <my-header></my-header>
-        <h1>id {{$route.params.id}} 입니다.</h1>
+        <h1>{{product.title}} 입니다.</h1>
         <div class="row">
         <div class="col-md-5 col-md-offset-0">
             <figure>
