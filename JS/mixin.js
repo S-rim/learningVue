@@ -1,4 +1,6 @@
-const myButton = {
+const myButton = { 
+    // 위를 Vue.mixin으로 변경하면 전역 믹스인으로.
+    // 앱에서 생성된 모든 뷰 인스턴스에 영향을 끼침
     methods : {
         pressed(val) {
             alert(val);
