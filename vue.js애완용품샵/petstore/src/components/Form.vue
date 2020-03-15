@@ -38,7 +38,7 @@
                   <strong>주:</strong>
                   <select v-model="order.state" class="form-control">
                     <option disabled value="">주</option>
-                    <option v-for="(state, key) in states" v-bind:value="state">
+                    <option v-for="(state, key) in states" v-bind:key="(state,key)">
                       {{key}}
                     </option>
                   </select>

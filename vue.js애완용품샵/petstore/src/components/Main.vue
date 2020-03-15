@@ -2,7 +2,7 @@
     <div>
         <my-header :cartItemCount="cartItemCount"></my-header>
         <main>
-        <div v-for="product in sortedProducts">
+        <div v-for="product in sortedProducts" v-bind:key="product">
         <div class="row">
           <div class="col-md-5 col-md-offset-0">
             <figure>
@@ -37,7 +37,7 @@
           </transition>
             <div class="rating">
               <span v-bind:class="{'rating-active': checkRating(n, product)}"
-                  v-for="n in 5">☆
+                  v-for="n in 5" v-bind:key="n">☆
               </span>
             </div>
           </div>
