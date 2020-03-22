@@ -51,14 +51,10 @@
 <script>
 import MyHeader from './Header.vue';
 import {mapGetters} from 'vuex';
-import {mapState} from 'vuex';
-import {mapMutations} from 'vuex';
-import {mapActions} from 'vuex';
 export default {
   name: 'imain',
   data() {
     return {
-      products: [],
       cart: []
     }
   },
@@ -75,7 +71,7 @@ export default {
     },
     cartCount(id) {
       let count = 0;
-      for (var i = 0; i < this.cart.length; i++) {
+      for (let i = 0; i < this.cart.length; i++) {
         if (this.cart[i] === id) {
           count++;
         }
@@ -84,24 +80,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'products'
-    ]),
-    ...mapState([
-        'data1',
-        'data2',
-        'data3'
-    ]),
-    ...mapMutations([
-        'mut1',
-        'mut2',
-        'mut3'
-    ]),
-    ...mapActions([
-        'act1',
-        'act2',
-        'act3'
-    ]),
     cartItemCount() {
       return this.cart.length || '';
     },
@@ -118,9 +96,9 @@ export default {
         return productsArray.sort(compare);
       }
     },
-    // products() {
-    //     return this.$store.getters.products;
-    // },
+    ...mapGetters([
+      'products'
+    ])
   },
   filters: {
     formatPrice(price) {
