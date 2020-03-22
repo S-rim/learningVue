@@ -50,6 +50,10 @@
 
 <script>
 import MyHeader from './Header.vue';
+import {mapGetters} from 'vuex';
+import {mapState} from 'vuex';
+import {mapMutations} from 'vuex';
+import {mapActions} from 'vuex';
 export default {
   name: 'imain',
   data() {
@@ -80,6 +84,24 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'products'
+    ]),
+    ...mapState([
+        'data1',
+        'data2',
+        'data3'
+    ]),
+    ...mapMutations([
+        'mut1',
+        'mut2',
+        'mut3'
+    ]),
+    ...mapActions([
+        'act1',
+        'act2',
+        'act3'
+    ]),
     cartItemCount() {
       return this.cart.length || '';
     },
@@ -95,7 +117,10 @@ export default {
         }
         return productsArray.sort(compare);
       }
-    }
+    },
+    // products() {
+    //     return this.$store.getters.products;
+    // },
   },
   filters: {
     formatPrice(price) {
@@ -117,10 +142,7 @@ export default {
     }
   },
   created: function() {
-    axios.get('/static/products.json').then(response => {
-      this.products = response.data.products;
-      console.log(this.products);
-    });
+    this.$store.dispatch('initStore');
     }
 }
 </script>
